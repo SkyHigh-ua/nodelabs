@@ -8,7 +8,7 @@
 
 (async() => {
     async function runSequent(arr: string[], callback: (item: string, index: number) => Promise<{item: string, index: number}>) {
-        return arr.map(callback);
+        return await Promise.all(arr.map(async (item: string, index: number) => await callback(item, index)));
     };
 
     const array: Array<string> = ["one", "two", "three"];

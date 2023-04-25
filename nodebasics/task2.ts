@@ -9,9 +9,12 @@
 // deletedElements = [2, 6]
 
 function arrayChangeDelete(arr: number[], cond: (item: number) => boolean): Array<number> {
-    let result = arr.filter(cond);
+    let result: typeof arr = [];
     arr.forEach((item, index) => {
-        if (cond(item)) arr.splice(index, 1);
+        if (cond(item)) {
+            let del = arr.splice(index, 1);
+            result.push(...del);
+        }
     });
     return result;
 }
