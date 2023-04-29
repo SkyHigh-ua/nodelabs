@@ -8,7 +8,7 @@
 // array = [1, 3, 7, 9]
 // deletedElements = [2, 6]
 
-function arrayChangeDelete(arr: number[], cond: (item: number) => boolean): Array<number> {
+function arrayChangeDelete<T>(arr: Array<T>, cond: (item: T) => boolean): Array<T> {
     let result: typeof arr = [];
     arr.forEach((item, index) => {
         if (cond(item)) {

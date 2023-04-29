@@ -7,8 +7,13 @@
 // results type = Array<{item: string, index: number}>
 
 (async() => {
-    async function runSequent(arr: string[], callback: (item: string, index: number) => Promise<{item: string, index: number}>) {
-        return await Promise.all(arr.map(async (item: string, index: number) => await callback(item, index)));
+    async function runSequent<T, RES>(arr: Array<T>, callback: (item: T, index: number) => Promise<RES>) {
+        let result: Awaited<RES>[] = [];
+        for (let i = 0; i < arr.length; i++) {
+            let newitem = await callback(arr[i], i);
+            result.push(newitem);
+        }
+        return result;
     };
 
     const array: Array<string> = ["one", "two", "three"];
