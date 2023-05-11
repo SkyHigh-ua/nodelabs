@@ -9,7 +9,7 @@
 // - зробіть ендпоінт "видалення користувача за його id";
 // - не використовуйте баз даних, зберігайте дані локально в пам'яті процесу або у файловій системі.
 import express, { Express, Request, Response, NextFunction } from 'express';
-import { router } from './routes/srv.routes'
+import { router } from './routes/users.routes'
 
 const app: Express = express();
 const port = 3000;

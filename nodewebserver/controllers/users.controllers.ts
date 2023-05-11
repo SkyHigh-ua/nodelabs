@@ -1,4 +1,4 @@
-import * as services from '../services/srv.services'
+import * as services from '../services/users.services'
 import { Request, Response, NextFunction } from 'express';
 
 export async function get(req: Request, res: Response, next: NextFunction){
