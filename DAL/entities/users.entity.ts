@@ -1,5 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn } from 'typeorm';
 import { PostEntity } from './posts.entity';
+import { Address } from '../common/users.interface'
 
 @Entity('User')
 export class UserEntity {
@@ -19,12 +20,9 @@ export class UserEntity {
   info?: string;
 
   @Column('json')
-  address: {
-    city: string
-    street: string
-  };
+  address: Address;
 
   @OneToMany(() => PostEntity, post => post.user)
-  @JoinColumn({ name: 'userId' })
+  @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
   posts: PostEntity[];
 }

@@ -1,6 +1,5 @@
 import { connection } from '../datasouce/db.datasouce';
 import { UserEntity } from '../entities/users.entity';
-import { PostEntity } from '../entities/posts.entity';
 
 export async function createUser(user: UserEntity): Promise<UserEntity> {
   return connection.manager.save(UserEntity, user);
@@ -44,26 +43,4 @@ export async function updateUser(user: UserEntity): Promise<UserEntity> {
 
 export async function deleteUser(id: number): Promise<void> {
   await connection.manager.delete(UserEntity, id);
-}
-
-export async function createPost(post: PostEntity): Promise<PostEntity> {
-  return connection.manager.save(PostEntity, post);
-}
-
-export async function findAllPosts(): Promise<PostEntity[]> {
-  return connection.manager.find(PostEntity);
-}
-
-export async function findPostById(id: number): Promise<PostEntity | null> {
-  return connection.manager.findOne(PostEntity, {
-    where: { id },
-  });
-}
-
-export async function updatePost(post: PostEntity): Promise<PostEntity> {
-  return connection.manager.save(PostEntity, post);
-}
-
-export async function deletePost(id: number): Promise<void> {
-  await connection.manager.delete(PostEntity, id);
 }

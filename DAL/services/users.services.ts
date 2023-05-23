@@ -1,6 +1,7 @@
-import { User, Userwithoutid, UserWithUnderfined } from '../common/users.interface'
-import * as Dao from '../DAO/db.dao';
+import { User, UserWithoutId, PartialUser } from '../common/users.interface'
+import * as Dao from '../DAO/users.dao';
 import * as mapping from '../mapping/users.mapping'
+import { HttpError } from '../common/error.class';
 
 export async function get(
     id?: number,
@@ -11,7 +12,7 @@ export async function get(
     if (id) {
       const user = await Dao.findUserById(id);
       if (!user) {
-        throw new Error(`User with id ${id} not found`);
+        throw new HttpError(`User with id ${id} not found`, 404);
       }
       return mapping.mapUserEntityToUser(user);
     } else {
@@ -25,10 +26,10 @@ export async function create(user_data: User){
     return mapping.mapUserEntityToUser(user);
 }
 
-export async function update(id: number, user_data: UserWithUnderfined){
+export async function update(id: number, user_data: PartialUser){
     let old_user_entity = await Dao.findUserById(id);
     if (!old_user_entity) {
-      throw new Error(`User with id ${id} not found`)
+      throw new HttpError(`User with id ${id} not found`, 404);
     }
     let old_user = mapping.mapUserEntityToUser(old_user_entity);
     let updatedUser = await Dao.updateUser(mapping.mapUserToUserEntity({

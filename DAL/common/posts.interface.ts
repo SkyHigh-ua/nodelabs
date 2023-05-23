@@ -6,11 +6,6 @@ export interface Post {
     userId: number
 }
 
-export interface Postwithoutid extends Omit<Post, 'id'> { id?: number; }
+export interface PostWithoutId extends Omit<Post, 'id'> { id?: number; }
 
-export interface PostWithUnderfined{
-    dateCreation?: Date
-    title?: string
-    text?: string
-    userId?: number
-}
+export type PartialPost = Partial<Post>;

@@ -11,13 +11,7 @@ export async function get(req: Request, res: Response, next: NextFunction){
 
 export async function post(req: Request, res: Response, next: NextFunction){
     try {
-        res.json(await services.create({
-            id:req.body.id,
-            dateCreation: req.body.dateCreation,
-            title: req.body.title,
-            text: req.body.text,
-            userId: req.body.userId
-        }));
+        res.json(await services.create(req.body));
     } catch (err) {
         next(err);
     }
@@ -25,12 +19,7 @@ export async function post(req: Request, res: Response, next: NextFunction){
 
 export async function put(req: Request, res: Response, next: NextFunction){
     try {
-        res.json(await services.update(+req.params.postId, {
-            dateCreation: req.body.dateCreation,
-            title: req.body.title,
-            text: req.body.text,
-            userId: req.body.userId
-        }));
+        res.json(await services.update(+req.params.postId, req.body));
     } catch (err) {
         next(err);
     }

@@ -1,12 +1,13 @@
-import { Post, Postwithoutid, PostWithUnderfined } from '../common/posts.interface'
-import * as Dao from '../DAO/db.dao';
+import { Post, PostWithoutId, PartialPost } from '../common/posts.interface'
+import * as Dao from '../DAO/posts.dao';
 import * as mapping from '../mapping/posts.mapping'
+import { HttpError } from '../common/error.class';
 
 export async function get(id?: number){
     if (id) {
         let post = await Dao.findPostById(id);
         if (!post) {
-            throw new Error(`Post with id ${id} not found`);
+            throw new HttpError(`Post with id ${id} not found`, 404);
         }
         return mapping.mapPostEntityToPost(post);
     } else {
@@ -20,10 +21,10 @@ export async function create(post_data: Post){
     return mapping.mapPostEntityToPost(post);
 }
 
-export async function update(id: number, post_data: PostWithUnderfined){
+export async function update(id: number, post_data: PartialPost){
     let old_post_entity = await Dao.findPostById(id);
     if (!old_post_entity) {
-      throw new Error(`Post with id ${id} not found`)
+        throw new HttpError(`Post with id ${id} not found`, 404);
     }
     let old_post = mapping.mapPostEntityToPost(old_post_entity);
     let post = await Dao.updatePost(mapping.mapPostToPostEntity({
