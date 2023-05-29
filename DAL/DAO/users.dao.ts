@@ -38,7 +38,7 @@ export async function findUserById(id: number): Promise<UserEntity | null> {
 }
 
 export async function updateUser(user: UserEntity): Promise<UserEntity> {
-  return connection.manager.merge(UserEntity, user);
+  return connection.manager.save(UserEntity, user);
 }
 
 export async function deleteUser(id: number): Promise<void> {

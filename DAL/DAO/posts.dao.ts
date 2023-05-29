@@ -16,7 +16,7 @@ export async function findPostById(id: number): Promise<PostEntity | null> {
 }
 
 export async function updatePost(post: PostEntity): Promise<PostEntity> {
-  return connection.manager.merge(PostEntity, post);
+  return connection.manager.save(PostEntity, post);
 }
 
 export async function deletePost(id: number): Promise<void> {
