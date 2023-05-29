@@ -17,7 +17,6 @@ export const db: DataSourceOptions =
         UserEntity,
         PostEntity
     ],
-    synchronize: true,
     logging: true,
     migrations: [
         "../migrations/*.ts"

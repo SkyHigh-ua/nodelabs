@@ -1,4 +1,4 @@
-import { connection } from '../datasouce/db.datasouce';
+import { connection } from '../datasource/db.datasource';
 import { UserEntity } from '../entities/users.entity';
 
 export async function createUser(user: UserEntity): Promise<UserEntity> {
@@ -38,7 +38,7 @@ export async function findUserById(id: number): Promise<UserEntity | null> {
 }
 
 export async function updateUser(user: UserEntity): Promise<UserEntity> {
-  return connection.manager.save(UserEntity, user);
+  return connection.manager.merge(UserEntity, user);
 }
 
 export async function deleteUser(id: number): Promise<void> {

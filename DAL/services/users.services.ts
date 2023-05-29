@@ -21,27 +21,27 @@ export async function get(
     }
   }
 
-export async function create(user_data: User){
-    let user = await Dao.createUser(mapping.mapUserToUserEntity(user_data));
+export async function create(userData: User){
+    let user = await Dao.createUser(mapping.mapUserToUserEntity(userData));
     return mapping.mapUserEntityToUser(user);
 }
 
-export async function update(id: number, user_data: PartialUser){
-    let old_user_entity = await Dao.findUserById(id);
-    if (!old_user_entity) {
+export async function update(id: number, userData: PartialUser){
+    let oldUserEntity = await Dao.findUserById(id);
+    if (!oldUserEntity) {
       throw new HttpError(`User with id ${id} not found`, 404);
     }
-    let old_user = mapping.mapUserEntityToUser(old_user_entity);
+    let oldUser = mapping.mapUserEntityToUser(oldUserEntity);
     let updatedUser = await Dao.updateUser(mapping.mapUserToUserEntity({
         id: id,
-        username: user_data.username ? user_data.username : old_user.username, 
-        email: user_data.email ? user_data.email : old_user.email,
-        age: user_data.age ? user_data.age : old_user.age,
-        info: user_data.info ? user_data.info : old_user.info,
-        address: user_data.address ? {
-          city: user_data.address.city ? user_data.address.city : old_user.address.city,
-          street: user_data.address.street ? user_data.address.street : old_user.address.street
-        } : old_user.address
+        username: userData.username ?? oldUser.username, 
+        email: userData.email ?? oldUser.email,
+        age: userData.age ?? oldUser.age,
+        info: userData.info ?? oldUser.info,
+        address: userData.address ? {
+          city: userData.address.city ?? oldUser.address.city,
+          street: userData.address.street ?? oldUser.address.street
+        } : oldUser.address
     }));
     return mapping.mapUserEntityToUser(updatedUser);
 }

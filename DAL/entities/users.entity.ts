@@ -23,6 +23,6 @@ export class UserEntity {
   address: Address;
 
   @OneToMany(() => PostEntity, post => post.user)
-  @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'id', referencedColumnName: 'userId' })
   posts: PostEntity[];
 }

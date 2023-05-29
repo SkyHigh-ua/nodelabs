@@ -17,7 +17,7 @@ app.use('/posts', postRouter)
 
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     console.log(`${err.stack}`);
-    res.status(err.stack ? err.status : 500).send(`[Error occured]:${err.stack}`);
+    res.status(err.status ? err.status : 500).send(`[Error occured]:${err.stack}`);
 })
 
 app.listen(port, () => {

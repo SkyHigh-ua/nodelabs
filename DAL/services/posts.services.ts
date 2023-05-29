@@ -21,18 +21,18 @@ export async function create(post_data: Post){
     return mapping.mapPostEntityToPost(post);
 }
 
-export async function update(id: number, post_data: PartialPost){
-    let old_post_entity = await Dao.findPostById(id);
-    if (!old_post_entity) {
+export async function update(id: number, postData: PartialPost){
+    let oldPostEntity = await Dao.findPostById(id);
+    if (!oldPostEntity) {
         throw new HttpError(`Post with id ${id} not found`, 404);
     }
-    let old_post = mapping.mapPostEntityToPost(old_post_entity);
+    let oldPost = mapping.mapPostEntityToPost(oldPostEntity);
     let post = await Dao.updatePost(mapping.mapPostToPostEntity({
         id: id,
-        dateCreation: post_data.dateCreation ? post_data.dateCreation : old_post.dateCreation,
-        title: post_data.title ? post_data.title : old_post.title,
-        text: post_data.text ? post_data.text : old_post.text,
-        userId: post_data.userId ? post_data.userId : old_post.userId
+        dateCreation: postData.dateCreation ?? oldPost.dateCreation,
+        title: postData.title ?? oldPost.title,
+        text: postData.text ?? oldPost.text,
+        userId: postData.userId ?? oldPost.userId
     }));
     return mapping.mapPostEntityToPost(post);
 }
